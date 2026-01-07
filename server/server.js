@@ -19,7 +19,14 @@ app.use(express.static(path.join(__dirname, '../')));
 // MongoDB Connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    const mongoUri =
+      process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mayukh';
+    if (!process.env.MONGODB_URI) {
+      console.warn(
+        'MONGODB_URI not set; defaulting to local MongoDB at mongodb://127.0.0.1:27017/mayukh'
+      );
+    }
+    await mongoose.connect(mongoUri);
     console.log('MongoDB connected successfully');
   } catch (error) {
     console.error('MongoDB connection error:', error);
