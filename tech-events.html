@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mayukh 2026 - Fun-Events</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .orbitron {
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* --- Rotating Circle --- */
+    @keyframes spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .rotate-slow {
+      animation: spin-slow 20s linear infinite;
+    }
+
+    /* --- Glowing Text --- */
+    .glow {
+      text-shadow: 0 0 10px #3bc4ff, 0 0 20px #3bc4ff, 0 0 30px #7c6bff;
+    }
+
+    .glow-purple {
+      text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7, 0 0 30px #c084fc;
+    }
+
+    .glow-red {
+      text-shadow: 0 0 10px #ef4444, 0 0 20px #ef4444, 0 0 30px #f87171;
+    }
+
+    .glow-green {
+      text-shadow: 0 0 10px #10b981, 0 0 20px #10b981, 0 0 30px #34d399;
+    }
+
+    .glow-orange {
+      text-shadow: 0 0 10px #f97316, 0 0 20px #f97316, 0 0 30px #fb923c;
+    }
+
+    /* --- Glass Effect --- */
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px rgba(59, 196, 255, 0.15);
+    }
+
+    /* --- Hover Glow --- */
+    .hover-glow:hover {
+      color: #3bc4ff;
+      text-shadow: 0 0 10px #3bc4ff, 0 0 20px #7c6bff;
+    }
+
+    /* --- Icon Glow --- */
+    .icon-hover:hover {
+      color: #3bc4ff;
+      transform: scale(1.2);
+      transition: all 0.3s ease-in-out;
+      text-shadow: 0 0 15px #3bc4ff;
+    }
+
+    /* --- Shooting Stars --- */
+    .shooting-stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 100px;
+      background: linear-gradient(-45deg, #3bc4ff, rgba(124,107,255,0));
+      box-shadow: 0 0 15px #3bc4ff, 0 0 25px #7c6bff;
+      opacity: 0;
+      transform-origin: top left;
+      border-radius: 2px;
+    }
+
+    @keyframes shoot-right {
+      0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translate(100vw, 100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shoot-left {
+      0% {
+        transform: translate(0, 0) rotate(-45deg);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translate(-100vw, 100vh) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+
+    /* --- Floating Animation --- */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* --- Pulse Animation --- */
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(59, 196, 255, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(59, 196, 255, 0.6), 0 0 60px rgba(124, 107, 255, 0.4); }
+    }
+
+    .pulse-glow {
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    /* --- Event Cards --- */
+    .event-card {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .event-card:hover::before {
+      left: 100%;
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(59, 196, 255, 0.3);
+    }
+
+    /* --- Verse Section Backgrounds --- */
+    .spy-verse-bg {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+      border-color: rgba(14, 165, 233, 0.3);
+    }
+
+    .scifi-verse-bg {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(147, 51, 234, 0.05) 100%);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    .carnival-verse-bg {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .dark-verse-bg {
+      background: linear-gradient(135deg, rgba(71, 85, 105, 0.1) 0%, rgba(51, 65, 85, 0.05) 100%);
+      border-color: rgba(71, 85, 105, 0.3);
+    }
+
+    .mythic-verse-bg {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.05) 100%);
+      border-color: rgba(249, 115, 22, 0.3);
+    }
+
+    /* --- Hexagon Decorations --- */
+    .hexagon {
+      width: 100px;
+      height: 57.74px;
+      background: rgba(59, 196, 255, 0.1);
+      position: relative;
+      margin: 28.87px 0;
+    }
+
+    .hexagon:before,
+    .hexagon:after {
+      content: "";
+      position: absolute;
+      width: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+    }
+
+    .hexagon:before {
+      bottom: 100%;
+      border-bottom: 28.87px solid rgba(59, 196, 255, 0.1);
+    }
+
+    .hexagon:after {
+      top: 100%;
+      border-top: 28.87px solid rgba(59, 196, 255, 0.1);
+    }
+
+    /* --- Scroll Reveal Animation --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease-out;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- Custom Scrollbar --- */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0e1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #3bc4ff, #7c6bff);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #7c6bff, #3bc4ff);
+    }
+
+    /* --- Dropdown Content --- */
+    .dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    }
+
+    .dropdown-content:not(.hidden) {
+      max-height: 500px;
+      transition: max-height 0.4s ease-in, padding 0.4s ease-in;
+    }
+
+    /* --- Cursor Pointer --- */
+    .cursor-pointer {
+      cursor: pointer;
+    }
+
+    /* --- Parallax Background --- */
+    .parallax-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .parallax-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white overflow-x-hidden">
+
+  <!-- Shooting Stars Background -->
+  <div class="shooting-stars"></div>
+
+  <!-- Parallax Background -->
+  <div class="parallax-bg">
+    <div class="parallax-layer">
+      <img src="assests/p1.png" alt="background" class="absolute inset-0 w-full h-full object-cover opacity-30">
+    </div>
+  </div>
+
+  <!-- LEFT NAVIGATION FRAME -->
+  <div class="fixed left-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col justify-between items-center glass rounded-2xl p-6 w-20 h-[60vh] border-l-4 border-cyan-400/50 z-50">
+    <nav class="flex flex-col items-center space-y-8 text-gray-300 text-sm">
+      <a href="index.html" class="flex flex-col items-center hover-glow">
+        <i class="fa-solid fa-house text-xl mb-1"></i>
+        <span>Home</span>
+      </a>
+      <a href="index.html#about" class="flex flex-col items-center hover-glow">
+        <i class="fa-solid fa-circle-info text-xl mb-1"></i>
+        <span>About</span>
+      </a>
+      <a href="javascript:void(0)" onclick="toggleEventsDropdown()" class="flex flex-col items-center hover-glow" id="nav-events">
+        <i class="fa-solid fa-calendar-days text-xl mb-1"></i>
+        <span>Events</span>
+      </a>
+      <!-- Events Dropdown -->
+      <div id="events-dropdown" class="absolute left-full top-1/2 -translate-y-1/2 ml-4 rounded-2xl p-4 hidden z-50 w-48" style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); border: 1px solid cyan; font-family: 'Rajdhani', sans-serif; color: white;">
+        <div class="space-y-3">
+          <div class="relative">
+            <button onclick="toggleSubDropdown('technical')" class="w-full text-left text-white hover:text-cyan-300 font-semibold py-2 px-3 rounded-lg hover:bg-cyan-400/20 transition">TECHNICAL</button>
+            <div id="technical-sub" class="absolute left-full bottom-0 ml-4 rounded-2xl p-4 hidden z-50 w-48" style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); border: 1px solid cyan; font-family: 'Rajdhani', sans-serif; color: white;">
+              <div class="space-y-2">
+                <a href="tech-events.html" class="block text-white hover:text-cyan-300 py-1">Tech Events</a>
+                <a href="non-tech-events.html" class="block text-white hover:text-cyan-300 py-1">Non-Tech Events</a>
+                <a href="fun-events.html" class="block text-white hover:text-cyan-300 py-1">Fun Events</a>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <button onclick="toggleSubDropdown('workshop')" class="w-full text-left text-white hover:text-cyan-300 font-semibold py-2 px-3 rounded-lg hover:bg-cyan-400/20 transition">WORKSHOP</button>
+            <div id="workshop-sub" class="absolute left-full top-0 ml-4 rounded-2xl p-4 hidden z-50 w-48" style="background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); border: 1px solid cyan; font-family: 'Rajdhani', sans-serif; color: white;">
+              <div class="space-y-2">
+                <a href="tech-workshops.html" class="block text-white hover:text-cyan-300 py-1">Tech Workshops</a>
+                <a href="non-tech-workshops.html" class="block text-white hover:text-cyan-300 py-1">Non-Tech Workshops</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="index.html#contact" class="flex flex-col items-center hover-glow">
+        <i class="fa-solid fa-envelope-open-text text-xl mb-1"></i>
+        <span>Contact</span>
+      </a>
+    </nav>
+    <div class="w-full h-[1px] bg-gradient-to-r from-cyan-400/60 to-transparent my-3"></div>
+    <p class="text-xs text-cyan-300/70 font-semibold tracking-widest">MENU</p>
+  </div>
+
+  <!-- RIGHT SOCIAL MEDIA FRAME -->
+  <div class="fixed right-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col justify-between items-center glass rounded-2xl p-6 w-20 h-[60vh] border-r-4 border-purple-500/50 z-50">
+    <div class="flex flex-col items-center space-y-8 text-2xl text-gray-300">
+      <a href="https://www.instagram.com" target="_blank" class="icon-hover"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.youtube.com" target="_blank" class="icon-hover"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://www.linkedin.com" target="_blank" class="icon-hover"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="mailto:mayukh@banasthali.org" class="icon-hover"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://x.com" target="_blank" class="icon-hover"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
+    <div class="w-full h-[1px] bg-gradient-to-l from-purple-500/60 to-transparent my-3"></div>
+    <p class="text-xs text-purple-300/70 font-semibold tracking-widest">SOCIAL</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="relative z-10">
+    
+    <!-- HERO SECTION -->
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 py-20">
+      <div class="mb-12 float">
+      <h1 id="events-title" class="text-7xl md:text-8xl font-black orbitron glow mb-4 tracking-wider max-w-full" style="word-break: break-word;">TECH EVENTS</h1>
+        <p class="text-2xl md:text-3xl text-cyan-300/90 font-medium tracking-wide">Explore the Five Verses of Innovation</p>
+      </div>
+    </section>
+
+    <!-- SPY VERSE SECTION -->
+    <section id="spy-verse" class="min-h-screen px-6 md:px-16 lg:px-32 py-20">
+      <div class="reveal">
+        <div class="text-center mb-16">
+          <div class="inline-block spy-verse-bg border-2 rounded-2xl px-8 py-4 mb-6">
+            <i class="fa-solid fa-user-secret text-5xl text-cyan-400 mb-2"></i>
+            <h2 class="text-5xl md:text-6xl font-black orbitron glow mt-2">SPY VERSE</h2>
+            <p class="text-cyan-300 text-lg mt-2 tracking-wider">Intelligence • Cryptography • Cyber Security</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <!-- Event 1 -->
+          <div class="event-card glass rounded-2xl border-2 border-cyan-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-lock text-3xl text-cyan-400"></i>
+                <span class="text-xs bg-cyan-400/20 px-3 py-1 rounded-full text-cyan-300 border border-cyan-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-cyan-400 mb-3">CIPHER QUEST</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Decode encrypted messages and solve cryptographic puzzles. Test your skills in classical and modern encryption techniques.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 2-3</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 3 Hours</span>
+              </div>
+              <div class="mt-3 text-cyan-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('spy-event-1')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="spy-event-1-icon"></i>
+              </div>
+              <button class="mt-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="spy-event-1" class="dropdown-content bg-black/40 border-t border-cyan-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-cyan-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Dive into the world of cryptography where you'll face challenges ranging from Caesar ciphers to RSA encryption. This event tests your analytical thinking and pattern recognition skills.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-cyan-300">Rounds:</strong> 3 rounds of increasing difficulty</p>
+                <p><strong class="text-cyan-300">Skills Required:</strong> Mathematics, Logic, Programming (optional)</p>
+                <p><strong class="text-cyan-300">Prize Pool:</strong> ₹15,000</p>
+                <p><strong class="text-cyan-300">Registration Fee:</strong> ₹200 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card glass rounded-2xl border-2 border-cyan-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-shield-halved text-3xl text-cyan-400"></i>
+                <span class="text-xs bg-cyan-400/20 px-3 py-1 rounded-full text-cyan-300 border border-cyan-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-cyan-400 mb-3">CYBER SENTINEL</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Capture-the-flag style cybersecurity challenge. Penetrate systems, find vulnerabilities, and defend against attacks.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 1-4</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 4 Hours</span>
+              </div>
+              <div class="mt-3 text-cyan-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('spy-event-2')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="spy-event-2-icon"></i>
+              </div>
+              <button class="mt-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="spy-event-2" class="dropdown-content bg-black/40 border-t border-cyan-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-cyan-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                A comprehensive CTF competition covering web exploitation, binary exploitation, reverse engineering, forensics, and cryptography. Compete to capture hidden flags in vulnerable systems.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-cyan-300">Categories:</strong> Web, Binary, Forensics, Crypto, OSINT</p>
+                <p><strong class="text-cyan-300">Skills Required:</strong> Penetration Testing, Network Security, Python/Bash</p>
+                <p><strong class="text-cyan-300">Prize Pool:</strong> ₹25,000</p>
+                <p><strong class="text-cyan-300">Registration Fee:</strong> ₹300 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card glass rounded-2xl border-2 border-cyan-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-fingerprint text-3xl text-cyan-400"></i>
+                <span class="text-xs bg-cyan-400/20 px-3 py-1 rounded-full text-cyan-300 border border-cyan-400/30">Day 2</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-cyan-400 mb-3">COVERT OPS</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Physical intelligence gathering challenge. Solve mysteries using steganography, social engineering, and tactical analysis.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 3-5</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 2 Hours</span>
+              </div>
+              <div class="mt-3 text-cyan-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('spy-event-3')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="spy-event-3-icon"></i>
+              </div>
+              <button class="mt-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="spy-event-3" class="dropdown-content bg-black/40 border-t border-cyan-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-cyan-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                An immersive treasure hunt combining physical and digital clues. Extract hidden messages from images, audio files, and QR codes while navigating campus locations.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-cyan-300">Format:</strong> Multi-location scavenger hunt</p>
+                <p><strong class="text-cyan-300">Skills Required:</strong> Steganography, Observation, Team Coordination</p>
+                <p><strong class="text-cyan-300">Prize Pool:</strong> ₹12,000</p>
+                <p><strong class="text-cyan-300">Registration Fee:</strong> ₹250 per team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCI-FI VERSE SECTION -->
+    <section id="scifi-verse" class="min-h-screen px-6 md:px-16 lg:px-32 py-20">
+      <div class="reveal">
+        <div class="text-center mb-16">
+          <div class="inline-block scifi-verse-bg border-2 rounded-2xl px-8 py-4 mb-6">
+            <i class="fa-solid fa-robot text-5xl text-purple-400 mb-2"></i>
+            <h2 class="text-5xl md:text-6xl font-black orbitron glow-purple mt-2">SCI-FI VERSE</h2>
+            <p class="text-purple-300 text-lg mt-2 tracking-wider">AI • Robotics • Future Tech</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <!-- Event 1 -->
+          <div class="event-card glass rounded-2xl border-2 border-purple-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-brain text-3xl text-purple-400"></i>
+                <span class="text-xs bg-purple-400/20 px-3 py-1 rounded-full text-purple-300 border border-purple-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-purple-400 mb-3">AI ARENA</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Build intelligent algorithms to compete in strategic games. Train models, optimize performance, and outwit opponents.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 2-3</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 5 Hours</span>
+              </div>
+              <div class="mt-3 text-purple-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('scifi-event-1')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="scifi-event-1-icon"></i>
+              </div>
+              <button class="mt-4 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="scifi-event-1" class="dropdown-content bg-black/40 border-t border-purple-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-purple-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Train AI agents to compete in strategic board games and simulations. Use machine learning techniques including reinforcement learning, neural networks, and genetic algorithms.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-purple-300">Games:</strong> Chess, Go, Custom strategy games</p>
+                <p><strong class="text-purple-300">Skills Required:</strong> Machine Learning, Python, TensorFlow/PyTorch</p>
+                <p><strong class="text-purple-300">Prize Pool:</strong> ₹30,000</p>
+                <p><strong class="text-purple-300">Registration Fee:</strong> ₹350 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card glass rounded-2xl border-2 border-purple-400/30 overflow-hidden cursor-pointer" onclick="toggleDropdown('scifi-event-2')">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-microchip text-3xl text-purple-400"></i>
+                <span class="text-xs bg-purple-400/20 px-3 py-1 rounded-full text-purple-300 border border-purple-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-purple-400 mb-3">ROBO WARS</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Design and program robots for combat. Autonomous navigation, sensor integration, and battle strategy combined.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 3-4</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 6 Hours</span>
+              </div>
+              <div class="mt-3 text-purple-400 text-sm flex items-center">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="scifi-event-2-icon"></i>
+              </div>
+              <button class="mt-4 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="scifi-event-2" class="dropdown-content bg-black/40 border-t border-purple-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-purple-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Build autonomous combat robots with weight restrictions and specifications. Program navigation, attack strategies, and defense mechanisms for arena battles.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-purple-300">Weight Limit:</strong> 15kg maximum</p>
+                <p><strong class="text-purple-300">Skills Required:</strong> Robotics, Arduino/RaspberryPi, C++/Python</p>
+                <p><strong class="text-purple-300">Prize Pool:</strong> ₹40,000</p>
+                <p><strong class="text-purple-300">Registration Fee:</strong> ₹500 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card glass rounded-2xl border-2 border-purple-400/30 overflow-hidden cursor-pointer" onclick="toggleDropdown('scifi-event-3')">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-satellite-dish text-3xl text-purple-400"></i>
+                <span class="text-xs bg-purple-400/20 px-3 py-1 rounded-full text-purple-300 border border-purple-400/30">Day 2</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-purple-400 mb-3">SPACE TECH CHALLENGE</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Solve problems inspired by space exploration. Orbital mechanics, satellite communication, and resource management.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 2-4</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 4 Hours</span>
+              </div>
+              <div class="mt-3 text-purple-400 text-sm flex items-center">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="scifi-event-3-icon"></i>
+              </div>
+              <button class="mt-4 bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="scifi-event-3" class="dropdown-content bg-black/40 border-t border-purple-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-purple-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Tackle real-world space technology challenges including trajectory optimization, satellite constellation design, and Mars colony resource allocation problems.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-purple-300">Challenges:</strong> 3 problem statements from space agencies</p>
+                <p><strong class="text-purple-300">Skills Required:</strong> Physics, Mathematics, Programming</p>
+                <p><strong class="text-purple-300">Prize Pool:</strong> ₹20,000</p>
+                <p><strong class="text-purple-300">Registration Fee:</strong> ₹300 per team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARNIVAL VERSE SECTION -->
+    <section id="carnival-verse" class="min-h-screen px-6 md:px-16 lg:px-32 py-20">
+      <div class="reveal">
+        <div class="text-center mb-16">
+          <div class="inline-block carnival-verse-bg border-2 rounded-2xl px-8 py-4 mb-6">
+            <i class="fa-solid fa-masks-theater text-5xl text-red-400 mb-2"></i>
+            <h2 class="text-5xl md:text-6xl font-black orbitron glow-red mt-2">CARNIVAL VERSE</h2>
+            <p class="text-red-300 text-lg mt-2 tracking-wider">Gaming • Entertainment • Creativity</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <!-- Event 1 -->
+          <div class="event-card glass rounded-2xl border-2 border-red-400/30 overflow-hidden cursor-pointer" onclick="toggleDropdown('carnival-event-1')">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-gamepad text-3xl text-red-400"></i>
+                <span class="text-xs bg-red-400/20 px-3 py-1 rounded-full text-red-300 border border-red-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-red-400 mb-3">GAME JAM</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                48-hour game development marathon. Create innovative games from scratch using any engine or framework.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 1-4</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 48 Hours</span>
+              </div>
+              <div class="mt-3 text-red-400 text-sm flex items-center">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="carnival-event-1-icon"></i>
+              </div>
+              <button class="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="carnival-event-1" class="dropdown-content bg-black/40 border-t border-red-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-red-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Create a complete game within 48 hours based on a surprise theme. Use Unity, Unreal, Godot, or any game engine. Judged on creativity, gameplay, graphics, and theme adherence.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-red-300">Platform:</strong> PC, Web, or Mobile</p>
+                <p><strong class="text-red-300">Skills Required:</strong> Game Development, Programming, Design</p>
+                <p><strong class="text-red-300">Prize Pool:</strong> ₹35,000</p>
+                <p><strong class="text-red-300">Registration Fee:</strong> ₹400 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card glass rounded-2xl border-2 border-red-400/30 overflow-hidden cursor-pointer" onclick="toggleDropdown('carnival-event-2')">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-video text-3xl text-red-400"></i>
+                <span class="text-xs bg-red-400/20 px-3 py-1 rounded-full text-red-300 border border-red-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-red-400 mb-3">TECH REELS</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Create viral-worthy tech content. Short films, animation, VFX, and creative storytelling through technology.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 2-5</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 3 Hours</span>
+              </div>
+              <div class="mt-3 text-red-400 text-sm flex items-center">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="carnival-event-2-icon"></i>
+              </div>
+              <button class="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="carnival-event-2" class="dropdown-content bg-black/40 border-t border-red-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-red-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Produce engaging 60-90 second tech videos showcasing innovation, explaining concepts, or entertaining viewers with technology themes. Use After Effects, Blender, or any creative tools.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-red-300">Format:</strong> 60-90 seconds, vertical or landscape</p>
+                <p><strong class="text-red-300">Skills Required:</strong> Video Editing, Animation, Storytelling</p>
+                <p><strong class="text-red-300">Prize Pool:</strong> ₹18,000</p>
+                <p><strong class="text-red-300">Registration Fee:</strong> ₹250 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card glass rounded-2xl border-2 border-red-400/30 overflow-hidden cursor-pointer" onclick="toggleDropdown('carnival-event-3')">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-palette text-3xl text-red-400"></i>
+                <span class="text-xs bg-red-400/20 px-3 py-1 rounded-full text-red-300 border border-red-400/30">Day 2</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-red-400 mb-3">DIGITAL CANVAS</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                AI-powered art and design competition. Generative art, 3D modeling, digital illustration, and creative coding.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Solo/Team</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 4 Hours</span>
+              </div>
+              <div class="mt-3 text-red-400 text-sm flex items-center">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="carnival-event-3-icon"></i>
+              </div>
+              <button class="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="carnival-event-3" class="dropdown-content bg-black/40 border-t border-red-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-red-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Create stunning digital artwork using AI tools, traditional digital painting, or creative coding. Categories include AI art, 3D rendering, and generative/algorithmic art.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-red-300">Categories:</strong> AI Art, 3D Art, Generative Art</p>
+                <p><strong class="text-red-300">Skills Required:</strong> Digital Art, AI Tools (Midjourney/Stable Diffusion), 3D Software</p>
+                <p><strong class="text-red-300">Prize Pool:</strong> ₹22,000</p>
+                <p><strong class="text-red-300">Registration Fee:</strong> ₹200 per participant</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DARK VERSE SECTION -->
+    <section id="dark-verse" class="min-h-screen px-6 md:px-16 lg:px-32 py-20">
+      <div class="reveal">
+        <div class="text-center mb-16">
+          <div class="inline-block dark-verse-bg border-2 rounded-2xl px-8 py-4 mb-6">
+            <i class="fa-solid fa-skull text-5xl text-slate-400 mb-2"></i>
+            <h2 class="text-5xl md:text-6xl font-black orbitron text-slate-300 mt-2" style="text-shadow: 0 0 10px #94a3b8, 0 0 20px #64748b;">DARK VERSE</h2>
+            <p class="text-slate-300 text-lg mt-2 tracking-wider">Mystery • Horror • Psychological</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <!-- Event 1 -->
+          <div class="event-card glass rounded-2xl border-2 border-slate-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-book-skull text-3xl text-slate-400"></i>
+                <span class="text-xs bg-slate-400/20 px-3 py-1 rounded-full text-slate-300 border border-slate-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-slate-300 mb-3">MURDER MYSTERY TECH</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Solve a tech-based murder mystery. Analyze digital forensics, data logs, and encrypted clues to find the culprit.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 3-4</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 3 Hours</span>
+              </div>
+              <div class="mt-3 text-slate-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('dark-event-1')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="dark-event-1-icon"></i>
+              </div>
+              <button class="mt-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="dark-event-1" class="dropdown-content bg-black/40 border-t border-slate-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-slate-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Investigate a fictional tech murder case by analyzing server logs, network traffic, deleted files, and metadata. Use forensic tools and deductive reasoning to identify the murderer.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-slate-300">Tools Provided:</strong> Forensic software, log analyzers</p>
+                <p><strong class="text-slate-300">Skills Required:</strong> Digital Forensics, Analytical Thinking</p>
+                <p><strong class="text-slate-300">Prize Pool:</strong> ₹16,000</p>
+                <p><strong class="text-slate-300">Registration Fee:</strong> ₹250 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card glass rounded-2xl border-2 border-slate-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-ghost text-3xl text-slate-400"></i>
+                <span class="text-xs bg-slate-400/20 px-3 py-1 rounded-full text-slate-300 border border-slate-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-slate-300 mb-3">HORROR CODE</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Debug cursed code in a horror-themed environment. Fix bugs while managing jump scares and psychological challenges.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 2-3</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 2 Hours</span>
+              </div>
+              <div class="mt-3 text-slate-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('dark-event-2')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="dark-event-2-icon"></i>
+              </div>
+              <button class="mt-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="dark-event-2" class="dropdown-content bg-black/40 border-t border-slate-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-slate-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Debug intentionally broken code in a darkened room with horror ambiance. Random jump scares and distractions test your focus while fixing runtime errors and logical bugs.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-slate-300">Environment:</strong> Dark room with horror effects</p>
+                <p><strong class="text-slate-300">Skills Required:</strong> Debugging, Concentration, Stress Management</p>
+                <p><strong class="text-slate-300">Prize Pool:</strong> ₹12,000</p>
+                <p><strong class="text-slate-300">Registration Fee:</strong> ₹200 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card glass rounded-2xl border-2 border-slate-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-door-open text-3xl text-slate-400"></i>
+                <span class="text-xs bg-slate-400/20 px-3 py-1 rounded-full text-slate-300 border border-slate-400/30">Day 2</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-slate-300 mb-3">ESCAPE ROOM 404</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Tech-based escape room with programming puzzles, hardware hacking, and logic challenges in a dark atmosphere.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 4-5</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 90 Mins</span>
+              </div>
+              <div class="mt-3 text-slate-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('dark-event-3')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="dark-event-3-icon"></i>
+              </div>
+              <button class="mt-4 bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="dark-event-3" class="dropdown-content bg-black/40 border-t border-slate-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-slate-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Escape a tech-themed locked room by solving coding challenges, reverse engineering locks, and cracking circuits. Work under pressure with a countdown timer in eerie surroundings.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-slate-300">Challenges:</strong> 7-10 interconnected puzzles</p>
+                <p><strong class="text-slate-300">Skills Required:</strong> Problem Solving, Electronics, Programming</p>
+                <p><strong class="text-slate-300">Prize Pool:</strong> ₹14,000</p>
+                <p><strong class="text-slate-300">Registration Fee:</strong> ₹300 per team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MYTHIC VERSE SECTION -->
+    <section id="mythic-verse" class="min-h-screen px-6 md:px-16 lg:px-32 py-20 mb-20">
+      <div class="reveal">
+        <div class="text-center mb-16">
+          <div class="inline-block mythic-verse-bg border-2 rounded-2xl px-8 py-4 mb-6">
+            <i class="fa-solid fa-dragon text-5xl text-orange-400 mb-2"></i>
+            <h2 class="text-5xl md:text-6xl font-black orbitron glow-orange mt-2">MYTHIC VERSE</h2>
+            <p class="text-orange-300 text-lg mt-2 tracking-wider">Legends • Heritage • Ancient Tech</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <!-- Event 1 -->
+          <div class="event-card glass rounded-2xl border-2 border-orange-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-scroll text-3xl text-orange-400"></i>
+                <span class="text-xs bg-orange-400/20 px-3 py-1 rounded-full text-orange-300 border border-orange-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-orange-400 mb-3">ANCIENT ALGORITHMS</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Solve problems using ancient mathematical principles. Vedic math, Greek geometry, and historical computing methods.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 2-3</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 3 Hours</span>
+              </div>
+              <div class="mt-3 text-orange-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('mythic-event-1')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="mythic-event-1-icon"></i>
+              </div>
+              <button class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="mythic-event-1" class="dropdown-content bg-black/40 border-t border-orange-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-orange-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Tackle computational problems using ancient techniques like Vedic multiplication, Euclidean algorithm, and historical number systems. Bridge ancient wisdom with modern computing.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-orange-300">Topics:</strong> Vedic Math, Ancient Greek Mathematics, Historical Algorithms</p>
+                <p><strong class="text-orange-300">Skills Required:</strong> Mathematics, Logical Thinking, Programming</p>
+                <p><strong class="text-orange-300">Prize Pool:</strong> ₹15,000</p>
+                <p><strong class="text-orange-300">Registration Fee:</strong> ₹200 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card glass rounded-2xl border-2 border-orange-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-landmark text-3xl text-orange-400"></i>
+                <span class="text-xs bg-orange-400/20 px-3 py-1 rounded-full text-orange-300 border border-orange-400/30">Day 1</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-orange-400 mb-3">HERITAGE HACK</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Digitize cultural heritage. Create AR/VR experiences, preservation apps, or tech solutions for historical artifacts.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 3-5</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 5 Hours</span>
+              </div>
+              <div class="mt-3 text-orange-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('mythic-event-2')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="mythic-event-2-icon"></i>
+              </div>
+              <button class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="mythic-event-2" class="dropdown-content bg-black/40 border-t border-orange-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-orange-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Build innovative tech solutions to preserve and showcase cultural heritage. Create AR tours of monuments, VR museum experiences, or apps for artifact preservation and education.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-orange-300">Technologies:</strong> AR/VR, Mobile Apps, 3D Scanning</p>
+                <p><strong class="text-orange-300">Skills Required:</strong> App Development, AR/VR, 3D Modeling</p>
+                <p><strong class="text-orange-300">Prize Pool:</strong> ₹28,000</p>
+                <p><strong class="text-orange-300">Registration Fee:</strong> ₹350 per team</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card glass rounded-2xl border-2 border-orange-400/30 overflow-hidden">
+            <div class="p-8">
+              <div class="flex items-center justify-between mb-4">
+                <i class="fa-solid fa-om text-3xl text-orange-400"></i>
+                <span class="text-xs bg-orange-400/20 px-3 py-1 rounded-full text-orange-300 border border-orange-400/30">Day 2</span>
+              </div>
+              <img src="https://via.placeholder.com/300x200?text=Event+Poster" alt="Event Poster" class="w-full h-32 object-cover rounded-lg mb-4">
+              <h3 class="text-2xl font-bold text-orange-400 mb-3">MYTHOLOGY MEETS AI</h3>
+              <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                Create AI models trained on mythological stories. Generate narratives, characters, or interactive experiences.
+              </p>
+              <div class="flex items-center text-xs text-gray-400 space-x-4">
+                <span><i class="fa-solid fa-users mr-1"></i> Team: 2-4</span>
+                <span><i class="fa-solid fa-clock mr-1"></i> 4 Hours</span>
+              </div>
+              <div class="mt-3 text-orange-400 text-sm flex items-center cursor-pointer" onclick="toggleDropdown('mythic-event-3')">
+                <span>Click for details</span>
+                <i class="fa-solid fa-chevron-down ml-2 transition-transform" id="mythic-event-3-icon"></i>
+              </div>
+              <button class="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded">Register Now!</button>
+            </div>
+            <div id="mythic-event-3" class="dropdown-content bg-black/40 border-t border-orange-400/30 px-8 pb-8 hidden">
+              <h4 class="text-lg font-bold text-orange-300 mb-3 mt-4">Event Details</h4>
+              <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                Train AI/ML models on mythological texts to generate stories, create character dialogues, or build interactive myth-based games. Blend ancient narratives with cutting-edge AI.
+              </p>
+              <div class="space-y-2 text-sm text-gray-400">
+                <p><strong class="text-orange-300">Deliverables:</strong> Story Generator, Chatbot, or Interactive Game</p>
+                <p><strong class="text-orange-300">Skills Required:</strong> NLP, Machine Learning, Creative Writing</p>
+                <p><strong class="text-orange-300">Prize Pool:</strong> ₹20,000</p>
+                <p><strong class="text-orange-300">Registration Fee:</strong> ₹300 per team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative border-t border-cyan-400/30 py-12 px-6 text-center">
+      <div class="glass rounded-2xl p-8 max-w-4xl mx-auto">
+        <h3 class="text-3xl font-bold orbitron glow mb-4">MAYUKH 2026</h3>
+        <p class="text-gray-400 mb-6">Celebrating Innovation Beyond Boundaries</p>
+        <div class="flex justify-center space-x-6 text-2xl mb-6">
+          <a href="https://www.instagram.com" target="_blank" class="icon-hover"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.youtube.com" target="_blank" class="icon-hover"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.linkedin.com" target="_blank" class="icon-hover"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="mailto:mayukh@banasthali.org" class="icon-hover"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://x.com" target="_blank" class="icon-hover"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        <p class="text-sm text-gray-500">© 2026 Banasthali Vidyapith. All rights reserved.</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Dropdown Toggle Function
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+      const icon = document.getElementById(id + '-icon');
+      
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-content').forEach(item => {
+        if (item.id !== id && !item.classList.contains('hidden')) {
+          item.classList.add('hidden');
+          const otherIcon = document.getElementById(item.id + '-icon');
+          if (otherIcon) {
+            otherIcon.style.transform = 'rotate(0deg)';
+          }
+        }
+      });
+      
+      // Toggle current dropdown
+      dropdown.classList.toggle('hidden');
+      
+      // Rotate icon
+      if (dropdown.classList.contains('hidden')) {
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // Shooting Stars
+    const starsContainer = document.querySelector('.shooting-stars');
+    const numStars = 14;
+
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('shooting-star');
+
+      const direction = Math.random() > 0.5 ? 'shoot-right' : 'shoot-left';
+      star.style.animation = `${direction} ${1 + Math.random() * 2}s linear ${Math.random() * 5}s infinite`;
+
+      star.style.top = Math.random() * window.innerHeight + 'px';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+
+      starsContainer.appendChild(star);
+    }
+
+    // Scroll Reveal Animation
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealOnScroll = () => {
+      revealElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (elementTop < windowHeight - 100) {
+          element.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Parallax Effect
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallaxLayers = document.querySelectorAll('.parallax-layer');
+
+      parallaxLayers.forEach((layer, index) => {
+        const speed = (index + 1) * 0.5;
+        layer.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Dynamic Title Update Based on URL Parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventParam = urlParams.get('event');
+    if (eventParam) {
+      const titleElement = document.getElementById('events-title');
+      titleElement.textContent = eventParam.toUpperCase();
+    }
+
+    // Events Dropdown Functions
+    function toggleEventsDropdown() {
+      const dropdown = document.getElementById('events-dropdown');
+      const isHidden = dropdown.classList.contains('hidden');
+
+      // Close all sub-dropdowns first
+      document.querySelectorAll('[id$="-sub"]').forEach(sub => {
+        sub.classList.add('hidden');
+      });
+
+      // Toggle main dropdown
+      if (isHidden) {
+        dropdown.classList.remove('hidden');
+      } else {
+        dropdown.classList.add('hidden');
+      }
+    }
+
+    function toggleSubDropdown(id) {
+      const subDropdown = document.getElementById(id + '-sub');
+      const isHidden = subDropdown.classList.contains('hidden');
+
+      // Close other sub-dropdowns
+      document.querySelectorAll('[id$="-sub"]').forEach(sub => {
+        if (sub.id !== id + '-sub') {
+          sub.classList.add('hidden');
+        }
+      });
+
+      // Toggle current sub-dropdown
+      if (isHidden) {
+        subDropdown.classList.remove('hidden');
+      } else {
+        subDropdown.classList.add('hidden');
+      }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('events-dropdown');
+      const navEvents = document.getElementById('nav-events');
+
+      if (!navEvents.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.add('hidden');
+        // Close all sub-dropdowns
+        document.querySelectorAll('[id$="-sub"]').forEach(sub => {
+          sub.classList.add('hidden');
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
