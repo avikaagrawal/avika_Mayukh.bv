@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Mayukh 2026</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Font Awesome CDN (for icons) -->
+
+  <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- Google Fonts -->
@@ -17,6 +19,7 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
     }
 
     .orbitron {
@@ -27,414 +30,234 @@
       font-family: 'Rajdhani', sans-serif;
     }
 
-    /* --- Rotating Circle --- */
-    @keyframes spin-slow {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .rotate-slow {
-      animation: spin-slow 20s linear infinite;
-    }
-
-    /* --- Glowing Text --- */
-    .glow {
-      text-shadow: 0 0 10px #3bc4ff, 0 0 20px #3bc4ff, 0 0 30px #7c6bff;
+    /* SHOOTING STAR ANIMATION */
+    .shooting-star {
+      position: absolute;
+      width: 3px;
+      height: 60px;
+      background: linear-gradient(white, transparent);
+      border-radius: 999px;
+      animation: shoot 1.8s linear infinite;
+      opacity: 0.8;
     }
 
-    /* --- Glass Effect --- */
-    .glass {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px rgba(59, 196, 255, 0.15);
-    }
-
-    /* --- Hover Glow --- */
-    .hover-glow:hover {
-      color: #3bc4ff;
-      text-shadow: 0 0 10px #3bc4ff, 0 0 20px #7c6bff;
-    }
-
-    /* --- Icon Glow --- */
-    .icon-hover:hover {
-      color: #3bc4ff;
-      transform: scale(1.2);
-      transition: all 0.3s ease-in-out;
-      text-shadow: 0 0 15px #3bc4ff;
-    }
-
-    /* --- Shooting Stars --- */
-    .shooting-stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-         @keyframes shoot {
+    @keyframes shoot {
       0% {
-        transform: translateX(0) translateY(0) rotate(45deg);
+        transform: translate(-50px, -50px) rotate(45deg);
         opacity: 1;
       }
+
       100% {
-        transform: translateX(-400px) translateY(600px) rotate(45deg);
+        transform: translate(-400px, 400px) rotate(45deg);
         opacity: 0;
       }
     }
 
-    /* --- Random placements --- */
-    .shooting-star:nth-child(1) { top: 10%; left: 80%; animation-delay: 0s; }
-    .shooting-star:nth-child(2) { top: 5%; left: 60%; animation-delay: 1s; }
-    .shooting-star:nth-child(3) { top: 15%; left: 40%; animation-delay: 2s; }
-    .shooting-star:nth-child(4) { top: 20%; left: 30%; animation-delay: 3s; }
-    .shooting-star:nth-child(5) { top: 25%; left: 70%; animation-delay: 4s; }
+    /* GLOW TEXT */
+    .glow {
+      text-shadow: 0 0 10px #3bc4ff, 0 0 20px #3bc4ff, 0 0 30px #7c6bff;
+    }
 
+    /* GLASS FRAME */
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
+    /* ✔ CLEAN ORBITING VERSES */
+    .verse-orbit-container {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 380px;
+      height: 380px;
+      pointer-events: none;
+      z-index: 6;
+    }
 
-    /* --- Custom Scrollbar --- */
+    .orbit {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      animation: rotation 20s linear infinite;
+    }
+
+    @keyframes rotation {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .verse {
+      position: absolute;
+      padding: 7px 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 700;
+      backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sci {
+      color: #00eaff;
+      top: 0%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .spy {
+      color: #ff3c3c;
+      top: 50%;
+      right: 0%;
+      transform: translate(50%, -50%);
+    }
+
+    .carnival {
+      color: #ffc041;
+      bottom: 0%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+
+    .mythic {
+      color: #ffd95b;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+    }
+
+    .dark {
+      color: #b37bff;
+      top: 15%;
+      right: 18%;
+      transform: translate(50%, -50%);
+    }
+
+    /* CUSTOM SCROLLBAR */
     ::-webkit-scrollbar {
       width: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: #0a0e1a;
+      background: #02040b;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(to bottom, #3bc4ff, #7c6bff);
+      background: linear-gradient(#3bc4ff, #7c6bff);
       border-radius: 10px;
     }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(to bottom, #7c6bff, #3bc4ff);
-    }
-    /* ==========================
-   ORBITING VERSES ANIMATION
-   ========================== */
-
-.verse-orbit {
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    width: 430px;
-    height: 430px;
-    margin-left: -215px;
-    margin-top: -215px;
-    border-radius: 50%;
-    z-index: 2;
-    pointer-events: none;
-    animation: rotateOrbit 25s linear infinite;
-}
-
-.verse {
-    position: absolute;
-    padding: 8px 15px;
-    border-radius: 25px;
-    font-size: 14px;
-    font-weight: 600;
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 0 12px rgba(0,0,0,0.7);
-    cursor: pointer;
-    pointer-events: auto;
-    transition: 0.3s ease;
-}
-
-.verse:hover {
-    transform: scale(1.20);
-    box-shadow: 0 0 20px currentColor;
-}
-
-/* POSITIONING AROUND THE CIRCLE */
-.sci { color: #00eaff; top: -20px; left: 50%; transform: translateX(-50%); }
-.spy { color: #ff3d4f; top: 50%; right: -30px; transform: translateY(-50%); }
-.carnival { color: #ffb703; bottom: -20px; left: 50%; transform: translateX(-50%); }
-.mythic { color: #ffd95b; top: 50%; left: -30px; transform: translateY(-50%); }
-.dark { color: #9b4dff; top: 12%; left: 12%; }
-
-/* ORBIT ROTATION */
-@keyframes rotateOrbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
   </style>
 </head>
 
-<body class="bg-black text-white font-[Poppins] overflow-x-hidden">
 
-    <!-- Shooting Stars -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="shooting-star"></div>
-      <div class="shooting-star"></div>
-      <div class="shooting-star"></div>
-      <div class="shooting-star"></div>
-      <div class="shooting-star"></div>
-    </div>
+<body class="bg-black text-white">
 
-  <!-- LEFT NAVIGATION FRAME (FIXED) -->
+  <!-- SHOOTING STARS BACKGROUND -->
+  <div class="shooting-stars absolute inset-0 pointer-events-none">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+  </div>
+
+  <!-- LEFT NAVIGATION -->
   <div class="fixed left-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col justify-between items-center glass rounded-2xl p-6 w-20 h-[70vh] border-l-4 border-cyan-400/50 z-50">
     <nav class="flex flex-col items-center space-y-8 text-gray-300 text-sm">
-      <a href="#home" class="flex flex-col items-center hover-glow">
+      <a href="#home" class="flex flex-col items-center hover:text-cyan-300">
         <i class="fa-solid fa-house text-xl mb-1"></i>
-        <span>Home</span>
+        Home
       </a>
-          <a href="history.html" class="flex flex-col items-center hover-glow">
-      <i class="fa-solid fa-hourglass-half text-xl mb-1"></i>
-      <span>History</span>
-    </a>
-    <a href="theme.html" class="flex flex-col items-center hover-glow">
-      <i class="fa-solid fa-globe text-xl mb-1"></i>
-      <span>Theme</span>
-    </a>
-      <div class="relative" id="events-nav">
-        <a href="javascript:void(0)" onclick="toggleEventsNav()" class="flex flex-col items-center hover-glow">
-          <i class="fa-solid fa-calendar-days text-xl mb-1"></i>
-          <span>Events</span>
-        </a>
-        <!-- Events Dropdown -->
-        <div id="events-dropdown-nav" class="absolute left-full top-1/2 -translate-y-1/2 ml-4 rounded-2xl p-4 hidden z-50 w-48" style="background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(12px); border: 1px solid cyan; font-family: 'Rajdhani', sans-serif; color: white;">
-          <div class="space-y-3">
-            <div class="relative">
-              <button onclick="toggleSubNav('technical')" class="w-full text-left text-white hover:text-cyan-300 font-semibold py-2 px-3 rounded-lg hover:bg-cyan-400/20 transition flex items-center justify-between">
-                TECHNICAL
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-              </button>
-              <div id="technical-sub-nav" class="absolute left-full bottom-0 ml-2 rounded-2xl p-4 hidden z-50 w-48" style="background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(12px); border: 1px solid cyan; font-family: 'Rajdhani', sans-serif; color: white;">
-                <div class="space-y-2">
-                  <a href="tech-events.html" class="block text-white hover:text-cyan-300 py-1 px-2 rounded hover:bg-cyan-400/10">Tech Events</a>
-                  <a href="non-tech-events.html" class="block text-white hover:text-cyan-300 py-1 px-2 rounded hover:bg-cyan-400/10">Non-Tech Events</a>
-                  <a href="fun-events.html" class="block text-white hover:text-cyan-300 py-1 px-2 rounded hover:bg-cyan-400/10">Fun Events</a>
-                </div>
-              </div>
-            </div>
-            <div class="relative">
-              <button onclick="toggleSubNav('workshop')" class="w-full text-left text-white hover:text-cyan-300 font-semibold py-2 px-3 rounded-lg hover:bg-cyan-400/20 transition flex items-center justify-between">
-                WORKSHOP
-                <i class="fa-solid fa-chevron-right text-xs"></i>
-              </button>
-              <div id="workshop-sub-nav" class="absolute left-full top-0 ml-2 rounded-2xl p-4 hidden z-50 w-48" style="background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(12px); border: 1px solid cyan; font-family: 'Rajdhani', sans-serif; color: white;">
-                <div class="space-y-2">
-                  <a href="tech-workshops.html" class="block text-white hover:text-cyan-300 py-1 px-2 rounded hover:bg-cyan-400/10">Tech Workshops</a>
-                  <a href="non-tech-workshops.html" class="block text-white hover:text-cyan-300 py-1 px-2 rounded hover:bg-cyan-400/10">Non-Tech Workshops</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-          <a href="#gallery" class="flex flex-col items-center hover-glow">
-      <i class="fa-solid fa-images text-xl mb-1"></i>
-      <span>Gallery</span>
-    </a>
-    <a href="#coordinators" class="flex flex-col items-center hover-glow">
-      <i class="fa-solid fa-user-group text-xl mb-1"></i>
-      <span>Coordinators</span>
-    </a>
+      <a href="history.html" class="flex flex-col items-center hover:text-cyan-300">
+        <i class="fa-solid fa-hourglass-half text-xl mb-1"></i>
+        History
+      </a>
+      <a href="theme.html" class="flex flex-col items-center hover:text-cyan-300">
+        <i class="fa-solid fa-globe text-xl mb-1"></i>
+        Theme
+      </a>
+      <a href="#gallery" class="flex flex-col items-center hover:text-cyan-300">
+        <i class="fa-solid fa-images text-xl mb-1"></i>
+        Gallery
+      </a>
     </nav>
-    <div class="w-full h-[1px] bg-gradient-to-r from-cyan-400/60 to-transparent my-3"></div>
-    <p class="text-xs text-cyan-300/70 font-semibold tracking-widest">MENU</p>
   </div>
 
-  <!-- RIGHT SOCIAL MEDIA FRAME (FIXED) -->
+
+  <!-- RIGHT SOCIAL BAR -->
   <div class="fixed right-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col justify-between items-center glass rounded-2xl p-6 w-20 h-[50vh] border-r-4 border-purple-500/50 z-20">
-      <div class="flex flex-col items-center space-y-10 text-2xl text-gray-300">
-        <a href="https://www.instagram.com" target="_blank" class="icon-hover"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://www.youtube.com" target="_blank" class="icon-hover"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://www.linkedin.com" target="_blank" class="icon-hover"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="mailto:mayukh@banasthali.org" class="icon-hover"><i class="fa-solid fa-envelope"></i></a>
-        
-        <div class="mt-6 text-sm text-gray-300">
-          <a href="#about" class="flex flex-col items-center hover-glow">
-            <i class="fa-solid fa-circle-info text-xl mb-1"></i>
-            <span>About</span>
-          </a>
-        </div>
-    <div class="w-full h-[1px] bg-gradient-to-r from-cyan-400/60 to-transparent my-3"></div>
-        </div>
+    <div class="flex flex-col items-center space-y-10 text-2xl text-gray-300">
+      <i class="fa-brands fa-instagram hover:text-purple-400"></i>
+      <i class="fa-brands fa-youtube hover:text-red-400"></i>
+      <i class="fa-brands fa-linkedin hover:text-blue-400"></i>
+      <i class="fa-solid fa-envelope hover:text-cyan-300"></i>
+    </div>
   </div>
-
-
 
 
   <!-- HERO SECTION -->
-  <section id="home" class="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden">
-    <!-- Background -->
-    <img src="assests/p1.png" alt="background" class="absolute inset-0 w-full h-full object-cover opacity-40">
+  <section id="home" class="relative h-screen flex flex-col justify-center items-center text-center">
 
-    <!-- Rotating Circle -->
-    <!-- Orbiting Verses -->
-    <div class="verse-orbit">
-    <div class="verse sci">Sci-Fi Verse</div>
-    <div class="verse spy">Spy Verse</div>
-    <div class="verse carnival">Carnival Verse</div>
-    <div class="verse mythic">Mythic Verse</div>
-    <div class="verse dark">Dark Verse</div>
-</div>
-    <div class="relative flex justify-center items-center">
-      <img src="assests/p4.png" alt="rotating circle" class="rotate-slow w-[28rem] h-[28rem] opacity-80 drop-shadow-[0_0_30px_#3bc4ff]">
-      <div class="absolute">
-        <h1 class="text-7xl font-extrabold glow drop-shadow-lg">MAYUKH 2026</h1>
-        <p class="mt-4 text-2xl text-cyan-300/90 font-medium">Celebrating Innovation Beyond Boundaries</p>
+    <!-- BACKGROUND -->
+    <img src="assests/p1.png" class="absolute inset-0 w-full h-full object-cover opacity-40">
+
+    <!-- ⭐ ORBITING VERSES (FIXED VERSION) -->
+    <div class="verse-orbit-container">
+      <div class="orbit">
+        <span class="verse sci">Sci-Fi Verse</span>
+        <span class="verse spy">Spy Verse</span>
+        <span class="verse carnival">Carnival Verse</span>
+        <span class="verse mythic">Mythic Verse</span>
+        <span class="verse dark">Dark Verse</span>
       </div>
     </div>
 
-    <!-- Scroll Down Indicator -->
-    <div class="absolute bottom-6 text-sm tracking-wider opacity-70 animate-bounce">Scroll ↓</div>
+    <!-- CENTER CIRCLE + TEXT -->
+    <div class="relative flex justify-center items-center">
+      <img src="assests/p4.png" class="rotate-slow w-[28rem] opacity-80 drop-shadow-[0_0_30px_#3bc4ff]">
+
+      <div class="absolute">
+        <h1 class="text-7xl font-extrabold glow">MAYUKH 2026</h1>
+        <p class="mt-4 text-2xl text-cyan-300/90">Celebrating Innovation Beyond Boundaries</p>
+      </div>
+    </div>
+
+    <div class="absolute bottom-6 opacity-70 animate-bounce">Scroll ↓</div>
   </section>
+
 
   <!-- ABOUT SECTION -->
-  <section id="about" class="relative min-h-screen px-6 md:px-16 py-20 bg-[#060911] overflow-hidden">
-
-    <!-- Background -->
-    <div class="absolute inset-0">
-      <img src="assests/p1.png" alt="background" class="absolute inset-0 w-full h-full object-cover opacity-40">
-    </div>
-
-    <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 glow relative z-10">About Us</h2>
-
-    
-
-    <!-- ABOUT CONTENT -->
-    <div class="relative flex flex-col md:flex-row justify-center items-center gap-10 z-10">
-      
-      <!-- Left Image -->
-      <div class="w-full md:w-1/2 flex justify-center">
-        <img src="assests/P6.jpg" alt="Banasthali" class="rounded-2xl shadow-lg w-96 border-2 border-cyan-400/40">
-      </div>
-
-      <!-- Right Info Card -->
-      <div class="relative bg-[#0a1020]/80 border border-cyan-400/30 rounded-2xl p-8 md:p-10 max-w-xl text-gray-300 shadow-[0_0_25px_rgba(59,196,255,0.2)]">
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-t-2xl"></div>
-        <h3 class="text-2xl font-semibold text-cyan-300 mb-4">Mayukh 2026</h3>
-        <p class="leading-relaxed">
-          <span class="text-purple-400 font-semibold">Mayukh</span> is the grand annual technical fest of 
-          <span class="text-cyan-400 font-semibold">Banasthali Vidyapith</span> – a convergence of innovation, 
-          creativity, and technology.  
-          It brings together brilliant minds from across disciplines to collaborate, compete, and redefine 
-          possibilities through hackathons, tech events, and project showcases.  
-          Inspired by the brilliance of light, *Mayukh 2026* shines as a celebration of intellect, 
-          teamwork, and futuristic vision – illuminating the path toward a smarter tomorrow.
-        </p>
-      </div>
-    </div>
+  <section id="about" class="relative min-h-screen px-6 md:px-16 py-20">
+    <h2 class="text-5xl font-bold text-center glow mb-16">About Us</h2>
   </section>
-
 
 
   <!-- FOOTER -->
-  <footer class="relative border-t border-cyan-400/30 py-12 px-6 text-center z-10">
-    <div class="glass rounded-2xl p-8 max-w-4xl mx-auto">
-      <h3 class="text-3xl font-bold orbitron glow mb-4">MAYUKH 2026</h3>
-      <p class="text-gray-400 mb-6">Celebrating Innovation Beyond Boundaries</p>
-      <div class="flex justify-center space-x-6 text-2xl mb-6">
-        <a href="https://www.instagram.com" target="_blank" class="icon-hover"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://www.youtube.com" target="_blank" class="icon-hover"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://www.linkedin.com" target="_blank" class="icon-hover"><i class="fa-brands fa-linkedin"></i></a>
-        <a href="mailto:mayukh@banasthali.org" class="icon-hover"><i class="fa-solid fa-envelope"></i></a>
-        <a href="https://x.com" target="_blank" class="icon-hover"><i class="fa-brands fa-x-twitter"></i></a>
-      </div>
-      <p class="text-sm text-gray-500">© 2026 Banasthali Vidyapith. All rights reserved.</p>
-    </div>
+  <footer class="border-t border-cyan-400/30 py-12 text-center">
+    <h3 class="text-3xl orbitron glow mb-4">MAYUKH 2026</h3>
+    <p class="text-gray-400">© 2026 Banasthali Vidyapith</p>
   </footer>
 
 
-
-  <!-- JAVASCRIPT -->
+  <!-- OPTIONAL GSAP for Entrance Animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
-    // Events Navigation Dropdown Functions
-    function toggleEventsNav() {
-      const dropdown = document.getElementById('events-dropdown-nav');
-      dropdown.classList.toggle('hidden');
-    }
-
-    function toggleSubNav(type) {
-      const subDropdown = document.getElementById(type + '-sub-nav');
-      
-      // Close the other sub-dropdown if it's open
-      if (type === 'technical') {
-        document.getElementById('workshop-sub-nav').classList.add('hidden');
-      } else if (type === 'workshop') {
-        document.getElementById('technical-sub-nav').classList.add('hidden');
-      }
-      
-      subDropdown.classList.toggle('hidden');
-    }
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(event) {
-      const eventsNav = document.getElementById('events-nav');
-      const dropdown = document.getElementById('events-dropdown-nav');
-      const technicalSub = document.getElementById('technical-sub-nav');
-      const workshopSub = document.getElementById('workshop-sub-nav');
-      
-      if (!eventsNav.contains(event.target) && 
-          !dropdown.contains(event.target) && 
-          !technicalSub.contains(event.target) && 
-          !workshopSub.contains(event.target)) {
-        dropdown.classList.add('hidden');
-        technicalSub.classList.add('hidden');
-        workshopSub.classList.add('hidden');
-      }
-    });
-
-    // Modal Functions
-    function toggleModal() {
-      document.getElementById("authModal").classList.toggle("hidden");
-    }
-
-
-
-    // Shooting Stars
-    const starsContainer = document.querySelector('.shooting-stars');
-    const numStars = 14;
-
-    for (let i = 0; i < numStars; i++) {
-      const star = document.createElement('div');
-      star.classList.add('shooting-star');
-
-      const direction = Math.random() > 0.5 ? 'shoot-right' : 'shoot-left';
-      star.style.animation = `${direction} ${1 + Math.random() * 2}s linear ${Math.random() * 5}s infinite`;
-
-      star.style.top = Math.random() * window.innerHeight + 'px';
-      star.style.left = Math.random() * window.innerWidth + 'px';
-
-      starsContainer.appendChild(star);
-    }
-
-  
-
-    // Smooth Scroll for Navigation Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+    gsap.from(".verse", {
+      opacity: 0,
+      y: -20,
+      duration: 1.2,
+      stagger: 0.15,
+      ease: "back.out(1.5)"
     });
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-<script>
-gsap.from(".verse", {
-    opacity: 0,
-    y: -25,
-    duration: 1.2,
-    stagger: 0.15,
-    ease: "back.out(1.7)"
-});
-</script>
-
 
 </body>
+
 </html>
